@@ -17,8 +17,6 @@ public class MushroomPuzzleItem : MonoBehaviour
     void OnMouseDown()
     {
         if (solved) return;
-        if (MushroomPuzzleManager.Instance == null)
-            return; // mencegah error
 
         MushroomPuzzleManager.Instance.OnMushroomClicked(mushroomID, this);
     }
