@@ -4,8 +4,10 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
     public string gameSceneName = "Area 1";
-    public GameObject settingsPanel;
-    public GameObject creditPanel;
+    public GameObject MainMenuPanel;
+    public GameObject SettingPanel;
+    public GameObject CreditPanel;
+
 
     public void StartGame()
     {
@@ -14,12 +16,14 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenSettings()
     {
-        settingsPanel.SetActive(true);
+        SettingPanel.SetActive(true);
+        MainMenuPanel.SetActive(false);
     }
 
     public void OpenCredits()
     {
-        creditPanel.SetActive(true);
+        CreditPanel.SetActive(true);
+        MainMenuPanel.SetActive(false);
     }
 
     public void QuitGame()
@@ -30,12 +34,14 @@ public class MainMenuController : MonoBehaviour
 
     public void CloseSettings()
     {
-        settingsPanel.SetActive(false);
+        SettingPanel.SetActive(false);
+        MainMenuPanel.SetActive(true);
     }
 
     public void CloseCredits()
     {
-        creditPanel.SetActive(false);
+        CreditPanel.SetActive(false);
+        MainMenuPanel.SetActive(true);
     }
 
 }
