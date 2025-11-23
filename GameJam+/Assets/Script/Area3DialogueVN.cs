@@ -31,11 +31,12 @@ public class Area3DialogueVN : MonoBehaviour
         dialogueBoxRect.anchoredPosition = originalPos + new Vector2(0, slideDistance);
     }
 
-    [System.Serializable]
+    [System.Serializable] // <-- CS0579: Hapus duplikat dari file
     public class DialogueLine
     {
         public string text;
         public bool isPlayer; // true = player, false = NPC
+        public string speaker; // <-- Tambahan dari error CS0117 sebelumnya
     }
 
     public void StartDialogue(DialogueLine[] conversation, System.Action onFinished)
