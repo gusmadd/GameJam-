@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class UIInventory : MonoBehaviour
 {
@@ -104,4 +105,24 @@ public class UIInventory : MonoBehaviour
         }
         hasBuilt = false;
     }
+    // UIInventory.cs
+
+    public string GetItemName(int index)
+    {
+        if (index >= 0 && index < slots.Count)
+        {
+            List<string> items = InventorySystem.Instance.GetItems();
+            if (index < items.Count)
+                return items[index];
+        }
+        return null;
+    }
+
+    public Sprite GetItemSprite(int index)
+    {
+        string itemName = GetItemName(index);
+        if (string.IsNullOrEmpty(itemName)) return null;
+        return InventorySystem.Instance.GetItemSprite(itemName);
+    }
+
 }

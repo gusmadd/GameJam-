@@ -12,6 +12,6 @@ public class NPCMatHattler : MonoBehaviour
         if (!canInteract) return;
 
         canInteract = false; // matikan sementara agar dialog tidak double
-        areaController.StartNPCDialogue();
+        areaController.ClickNPC(); // <-- ubah ini sesuai method terbaru di Area3Controller
     }
 }

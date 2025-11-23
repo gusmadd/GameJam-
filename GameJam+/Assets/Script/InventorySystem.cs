@@ -75,6 +75,9 @@ public class InventorySystem : MonoBehaviour
 
     public void SaveInventory()
     {
+        if (string.IsNullOrEmpty(savePath))
+            savePath = Application.persistentDataPath + "/inventory.json";
+
         InventorySaveData data = new InventorySaveData();
         data.items = items;
         string json = JsonUtility.ToJson(data, true);
