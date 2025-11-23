@@ -9,68 +9,77 @@ public class JamPanelController : MonoBehaviour
     public Image jarumImage;          // jarum pendek
     public CanvasGroup canvasGroup;   // untuk fade out panel
     public Button clickButton;        // button transparan di tengah jam
+
     [Header("Settings")]
-    public float stepAngle = 5f;
-    public float targetAngle = 150f;  // Jam 7 (150 derajat)
-    public float startAngle = 180f;   // Jam 6 (180 derajat)
-    public float tolerance = 2f;
+    public float stepAngle = 5f;      // derajat per klik
+    public float targetAngle = 30f;   // jam 7
+    public float tolerance = 2f;      // toleransi ±2°
 
     private bool jarumActive = false;
 
+    [Header("Inventory Reference")]
+    public InventorySystem inventorySystem;
+    public UIInventory uiInventory;
+
+    // Callback untuk memberi tahu controller (misal Area3Controller) setelah panel ditutup
+    public System.Action OnPanelClosed;
+
+    // ================= Start =================
     void Start()
     {
-        // Pastikan jarum dan panel aktif sesuai kebutuhan
         panel.SetActive(false);
         jarumImage.gameObject.SetActive(false);
 
-        // Assign listener klik ke button transparan
-        clickButton.onClick.AddListener(OnJarumClick);
+        // Assign listener klik button
+        if (clickButton != null)
+            clickButton.onClick.AddListener(OnJarumClick);
+
+        // Safety check inventory
+        if (inventorySystem == null) inventorySystem = InventorySystem.Instance;
+        if (uiInventory == null) uiInventory = UIInventory.Instance;
     }
 
-    // ================= Buka panel jam =================
+    // ================= Buka Panel =================
     public void OpenPanel(Sprite jamSprite)
     {
         panel.SetActive(true);
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
 
-        // Set jarum di posisi awal jam 6
-        jarumImage.gameObject.SetActive(true);
-        jarumImage.rectTransform.localEulerAngles = new Vector3(0, 0, -90f);
-        jarumActive = true;
-    }
+        // HAPUS AKTIVASI JARUM DI SINI:
+        // jarumImage.gameObject.SetActive(true); 
 
+        // Pastikan jarum TIDAK aktif saat panel pertama dibuka
+        jarumImage.gameObject.SetActive(false);
+        jarumActive = false; // Jarum belum dipasang
+
+        // Posisi awal jarum (Hanya mengatur posisi jika sudah aktif, tapi sebaiknya di ActivateJarum)
+        // jarumImage.rectTransform.localEulerAngles = new Vector3(0, 0, 180f); 
+    }
     // ================= Klik-klik jarum =================
     public void OnJarumClick()
     {
         if (!jarumActive) return;
 
         float currentAngle = jarumImage.rectTransform.localEulerAngles.z;
+        if (currentAngle > 180) currentAngle -= 360f;
 
-        // Putar jarum mundur (dari 180 ke 150)
-        currentAngle -= stepAngle;
-
-        // Pastikan jarum tidak melewati target 150 derajat
-        // Batas bawah (Jam 7) adalah 150, batas atas (Jam 6) adalah 180.
-        currentAngle = Mathf.Clamp(currentAngle, targetAngle, startAngle);
+        currentAngle -= stepAngle; // arah searah jarum jam
+        currentAngle = Mathf.Clamp(currentAngle, targetAngle, 180f); // 180° = jam 6
 
         jarumImage.rectTransform.localEulerAngles = new Vector3(0, 0, currentAngle);
 
-        // Cek apakah sudah mencapai target (150 derajat)
+        // cek target jam 7
         if (Mathf.Abs(currentAngle - targetAngle) <= tolerance)
         {
-            jarumImage.rectTransform.localEulerAngles = new Vector3(0, 0, targetAngle); // snap
-            Debug.Log("Puzzle Selesai! Jam diatur ke Jam 7.");
-            StartCoroutine(FadeOutPanel());
+            jarumImage.rectTransform.localEulerAngles = new Vector3(0, 0, targetAngle);
             jarumActive = false;
-
-            // Tambahkan fungsi untuk melanjutkan game/memberi hadiah di sini
-            // Misalnya: FindObjectOfType<Area3Controller>().GiveFinalItem(); 
+            StartCoroutine(FadeOutPanelAndRemoveItems());
         }
     }
 
-    // ================= Fade out panel =================
-    private IEnumerator FadeOutPanel()
+    // ================= Fade out panel dan hapus item =================
+    private IEnumerator FadeOutPanelAndRemoveItems()
     {
         float t = 0f;
         float duration = 0.5f;
@@ -85,5 +94,44 @@ public class JamPanelController : MonoBehaviour
         panel.SetActive(false);
         jarumImage.gameObject.SetActive(false);
         canvasGroup.blocksRaycasts = false;
+
+        // Hapus item inventory
+        if (inventorySystem != null)
+        {
+            inventorySystem.GetItems().Remove("Jam Rusak");
+            inventorySystem.GetItems().Remove("Jarum Pendek");
+            inventorySystem.SaveInventory();
+
+            if (uiInventory != null)
+            {
+                uiInventory.ClearAllSlots();
+                uiInventory.RebuildUIFromData();
+            }
+        }
+
+        // Panggil callback kalau ada
+        OnPanelClosed?.Invoke();
+    }
+
+    // ================= Pasang jarum (dipanggil dari Area3Controller) =================
+    public void PlaceJarum(Sprite jarumSprite)
+    {
+        // Buka panel jam
+        OpenPanel(jarumSprite);
+
+        // jarum sudah aktif di OpenPanel
+        // klik-klik tetap via button transparan
+    }
+    public void ActivateJarum(Sprite jarumSprite)
+    {
+        jarumImage.sprite = jarumSprite;
+        jarumImage.gameObject.SetActive(true); // <-- BARU AKTIF DI SINI
+        jarumImage.rectTransform.localEulerAngles = new Vector3(0, 0, 180f); // posisi awal jam 6
+        jarumActive = true;
+
+        // Pastikan panel terbuka jika belum
+        panel.SetActive(true);
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
     }
 }
