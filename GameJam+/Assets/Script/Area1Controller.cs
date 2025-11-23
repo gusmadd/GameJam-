@@ -22,10 +22,8 @@ public class Area1Controller : MonoBehaviour
 
     private string[] openingDialog = new string[]
     {
-        "Dimana ini...?",
-        "Kepalaku... terasa berat.",
-        "Aku harus mencari tahu apa yang terjadi.",
-        "Kamu ambilah jam itu, nadbfuhabff...."
+        "Where am I? What kind of place is this? Huh... these clothes... What’s happening in Wonderland?",
+        "A clock? Whose clock is just lying there?"
     };
 
     void Start()
@@ -55,13 +53,15 @@ public class Area1Controller : MonoBehaviour
     }
 
     private void OnOpeningDialogueFinished()
-    {
-        canPickWatch = true;
-        watchItem.enabled = true;
+{
+    Debug.Log("Opening dialogue finished! Jam sekarang boleh diambil.");
 
-        // Fade out = gelap → terang (intensity turun)
-        if (globalLight != null) StartCoroutine(FadeLight(globalLight, 1f, 10f, lightFadeDuration));
-    }
+    canPickWatch = true;
+    watchItem.enabled = true;
+
+    if (globalLight != null)
+        StartCoroutine(FadeLight(globalLight, 1f, 10f, lightFadeDuration));
+}
 
     public void OnWatchCollected()
     {
@@ -69,8 +69,8 @@ public class Area1Controller : MonoBehaviour
         UIInventory.Instance.AddItemToUI(Resources.Load<Sprite>("Sprites/Items/broken_watch"));
 
         string[] afterWatch = {
-            "Wah jam ini rusak... gimana ya.",
-            "Sepertinya aku harus keluar dari ruangan ini."
+            "It’s broken... but maybe I should keep it. It could be a clue in this strange world.",
+            "First, I need to find a way out. There’s a window over there. Maybe looking through it will give me some answers."
         };
 
         // Fade in = terang → gelap
