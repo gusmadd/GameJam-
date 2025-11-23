@@ -28,8 +28,9 @@ public class Area5Controller : MonoBehaviour
     public GameObject fragment5Object;
 
     [Header("Area Exit")]
-    // Referensi ke BlackPortal yang menggunakan SpriteRenderer
-    public BlackPortal lightPortal;
+    // UBAH: Referensi ke GameObject, bukan ke skrip BlackPortal
+    public GameObject lightPortalObject;
+    // public BlackPortal lightPortal; // Hapus atau jadikan komentar baris ini
     public string nextSceneName = "Area 8";
 
     private Vector3 camStartPos;
@@ -69,7 +70,7 @@ public class Area5Controller : MonoBehaviour
         if (fragment5Object != null) fragment5Object.SetActive(false);
 
         // Portal juga non-aktif
-        if (lightPortal != null) lightPortal.gameObject.SetActive(false);
+        if (lightPortalObject != null) lightPortalObject.SetActive(false);
     }
 
     void Update()
@@ -90,10 +91,11 @@ public class Area5Controller : MonoBehaviour
 
         if (collectedFragmentsCount >= totalFragments)
         {
-            // Semua fragment sudah dikumpulkan, buka portal
-            if (lightPortal != null)
+            // UBAH: Semua fragment sudah dikumpulkan, aktifkan GameObject portal
+            // if (lightPortal != null) { lightPortal.OpenPortal(); } // Hapus/Komentari
+            if (lightPortalObject != null)
             {
-                lightPortal.OpenPortal();
+                lightPortalObject.SetActive(true);
             }
         }
     }
@@ -221,9 +223,23 @@ public class Area5Controller : MonoBehaviour
     // Metode ClickPortal() tetap sama, tidak peduli BlackPortal pakai Sprite atau Image.
     public void ClickPortal()
     {
-        if (collectedFragmentsCount >= totalFragments && lightPortal != null && lightPortal.gameObject.activeSelf)
+        // Cek apakah semua syarat terpenuhi
+        if (collectedFragmentsCount >= totalFragments && lightPortalObject != null && lightPortalObject.activeSelf)
         {
-            SceneManager.LoadScene(nextSceneName);
+            // === GANTI BARIS INI ===
+            // SceneManager.LoadScene(nextSceneName); 
+
+            // === DENGAN PANGGILAN KE TRANSITION MANAGER ===
+            if (TransitionManager.Instance != null)
+            {
+                TransitionManager.Instance.FadeOutAndLoadScene(nextSceneName);
+            }
+            else
+            {
+                // Fallback jika TransitionManager belum diinisialisasi
+                Debug.LogWarning("TransitionManager tidak ditemukan, memuat scene Area8 secara instan.");
+                SceneManager.LoadScene(nextSceneName);
+            }
         }
         else if (collectedFragmentsCount < totalFragments)
         {
@@ -266,5 +282,5 @@ public class Area5Controller : MonoBehaviour
         else if (hit.collider.CompareTag("LightDoor"))
             ClickPortal();
     }
-    
+
 }

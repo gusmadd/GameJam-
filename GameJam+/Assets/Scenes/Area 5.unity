@@ -2446,7 +2446,7 @@ MonoBehaviour:
   fragment3Object: {fileID: 870187674}
   fragment4Object: {fileID: 2137912490}
   fragment5Object: {fileID: 726799966}
-  lightPortal: {fileID: 2083728875}
+  lightPortalObject: {fileID: 2083728871}
   nextSceneName: Area 8
 --- !u!1001 &870187673
 PrefabInstance:
@@ -4469,7 +4469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1913823728
 Transform:
   m_ObjectHideFlags: 0
@@ -4616,14 +4616,13 @@ GameObject:
   - component: {fileID: 2083728874}
   - component: {fileID: 2083728873}
   - component: {fileID: 2083728872}
-  - component: {fileID: 2083728875}
   m_Layer: 0
   m_Name: Pintu cahaya
-  m_TagString: Untagged
+  m_TagString: LightDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!60 &2083728872
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -4653,7 +4652,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -4944,19 +4943,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2083728875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2083728871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 575f12612573b6e4da9b474d3d062878, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  portalRenderer: {fileID: 2083728873}
 --- !u!1001 &2137912489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5144,7 +5130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &2138101904
 Rigidbody2D:
   serializedVersion: 4

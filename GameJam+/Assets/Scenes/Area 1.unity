@@ -3567,8 +3567,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!114 &1522200694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3597,7 +3595,6 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 41f2e8aa923be27418568d86d874868f, type: 3}
   - itemName: Fragment5
     icon: {fileID: 21300000, guid: 90fd89f4e4f53c24d87ed15d867a0f22, type: 3}
->>>>>>> Stashed changes
 --- !u!114 &1522200695
 MonoBehaviour:
   m_ObjectHideFlags: 0
