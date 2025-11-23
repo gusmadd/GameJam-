@@ -2,27 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
 public class UIInventory : MonoBehaviour
 {
     public static UIInventory Instance;
 
+    [Header("Slot gambar item di UI")]
     public List<Image> slots = new List<Image>();
-    private bool hasBuilt = false; // Flag untuk rebuild UI sekali per scene
+
+    private bool hasBuilt = false; // Flag untuk build UI sekali per scene
 
     void Awake()
     {
         Instance = this;
         ClearAllSlots();
 
-        // Build UI dari InventorySystem jika ada
+        // Build UI dari InventorySystem kalau sudah ada
         RebuildUIFromData();
     }
 
     public void RebuildUIFromData()
     {
-        if (hasBuilt) return; // Hanya sekali
+        if (hasBuilt) return; // Hanya sekali per scene
         if (InventorySystem.Instance == null) return;
 
         hasBuilt = true;
@@ -35,7 +36,10 @@ public class UIInventory : MonoBehaviour
 
     IEnumerator LoadIconsAndBuild()
     {
-        yield return null; // tunggu frame supaya semua komponen siap
+        // Tunggu 1 frame supaya semua komponen UI siap
+        yield return null;
+
+        if (InventorySystem.Instance == null) yield break;
 
         List<string> itemsToLoad = InventorySystem.Instance.GetItems();
 
@@ -62,7 +66,7 @@ public class UIInventory : MonoBehaviour
         }
     }
 
-    // Tambahkan item baru ke UI (dipanggil oleh InventorySystem)
+    // Dipanggil oleh InventorySystem saat item baru ditambah
     public void AddItemToUI(Sprite icon)
     {
         if (icon == null) return; // Safety check
@@ -100,15 +104,19 @@ public class UIInventory : MonoBehaviour
     {
         foreach (var slot in slots)
         {
+            if (slot == null) continue;
             slot.sprite = null;
-            slot.color = new Color(1, 1, 1, 0);
+            slot.color = new Color(1, 1, 1, 0); // transparan
         }
         hasBuilt = false;
     }
-    // UIInventory.cs
+
+    // == Helper buat akses berdasarkan index slot ==
 
     public string GetItemName(int index)
     {
+        if (InventorySystem.Instance == null) return null;
+
         if (index >= 0 && index < slots.Count)
         {
             List<string> items = InventorySystem.Instance.GetItems();
@@ -124,5 +132,4 @@ public class UIInventory : MonoBehaviour
         if (string.IsNullOrEmpty(itemName)) return null;
         return InventorySystem.Instance.GetItemSprite(itemName);
     }
-
 }

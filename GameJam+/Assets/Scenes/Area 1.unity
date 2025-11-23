@@ -3567,37 +3567,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream
-=======
---- !u!114 &1522200694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522200690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2412ba8b70e4ccf4bb4defbb0b81feee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSlots: 5
-  itemSprites:
-  - itemName: Jam Rusak
-    icon: {fileID: 21300000, guid: c1d45e6eea7d1674cb30e50bb84fc2e0, type: 3}
-  - itemName: Fragment1
-    icon: {fileID: 21300000, guid: 907f516e1f0d092449e0a1dacf7c3614, type: 3}
-  - itemName: Jarum Pendek
-    icon: {fileID: 21300000, guid: ed8c5bf390ed2324fb07fbfbfdd1b278, type: 3}
-  - itemName: Fragment2
-    icon: {fileID: 21300000, guid: 2c612d9f74e18eb419bc5ca0ab96ae85, type: 3}
-  - itemName: Fragment3
-    icon: {fileID: 21300000, guid: 7ddc1fcb46232074f8d0aaed939b5620, type: 3}
-  - itemName: Fragment4
-    icon: {fileID: 21300000, guid: 41f2e8aa923be27418568d86d874868f, type: 3}
-  - itemName: Fragment5
-    icon: {fileID: 21300000, guid: 90fd89f4e4f53c24d87ed15d867a0f22, type: 3}
->>>>>>> Stashed changes
 --- !u!114 &1522200695
 MonoBehaviour:
   m_ObjectHideFlags: 0
