@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class PickupItem : MonoBehaviour
 {
-    public string itemName = "Jam Rusak"; // jam rusak
-    public Sprite icon;
+    public string itemName = "Jam Rusak"; // nama harus sama dengan di InventorySystem.itemSprites
+    public Sprite icon; // sudah tidak dipakai, boleh dihapus kalau mau
 
     private bool picked = false;
 
     void OnMouseDown()
     {
         if (picked) return;
-        if (!FindObjectOfType<Area1Controller>().CanPickWatch) return;
 
-        bool added = InventorySystem.Instance.AddItem(itemName, icon);
+        Area1Controller area = FindObjectOfType<Area1Controller>();
+        if (area == null) return;
+        if (!area.CanPickWatch) return;
+
+        // PAKAI versi ini: sprite diambil dari database InventorySystem
+        bool added = InventorySystem.Instance.AddItem(itemName);
 
         if (added)
         {
             picked = true;
             StartCoroutine(PickupAnimation());
+        }
+        else
+        {
+            Debug.Log("[PickupItem] Gagal menambah item (inventory penuh?)");
         }
     }
 
@@ -67,6 +75,11 @@ public class PickupItem : MonoBehaviour
 
         // hilang
         gameObject.SetActive(false);
-        FindObjectOfType<Area1Controller>().OnWatchCollected();
+
+        Area1Controller area = FindObjectOfType<Area1Controller>();
+        if (area != null)
+        {
+            area.OnWatchCollected();
+        }
     }
 }
