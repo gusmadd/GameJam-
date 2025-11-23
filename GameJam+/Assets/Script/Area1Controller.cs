@@ -28,6 +28,7 @@ public class Area1Controller : MonoBehaviour
 
     void Start()
     {
+        InventorySystem.Instance.ClearInventory();
         // Disable interaksi
         watchItem.enabled = false;
         windowObject.GetComponent<WindowInteract>().enabled = false;
@@ -53,15 +54,13 @@ public class Area1Controller : MonoBehaviour
     }
 
     private void OnOpeningDialogueFinished()
-{
-    Debug.Log("Opening dialogue finished! Jam sekarang boleh diambil.");
+    {
+        canPickWatch = true;
+        watchItem.enabled = true;
 
-    canPickWatch = true;
-    watchItem.enabled = true;
-
-    if (globalLight != null)
-        StartCoroutine(FadeLight(globalLight, 1f, 10f, lightFadeDuration));
-}
+        // Fade out = gelap → terang (intensity turun)
+        if (globalLight != null) StartCoroutine(FadeLight(globalLight, 1f, 10f, lightFadeDuration));
+    }
 
     public void OnWatchCollected()
     {
