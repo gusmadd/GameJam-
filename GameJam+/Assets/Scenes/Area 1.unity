@@ -3545,6 +3545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1522200693}
   - component: {fileID: 1522200695}
+  - component: {fileID: 1522200696}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3583,6 +3584,32 @@ MonoBehaviour:
     finishedOpeningDialogue: 0
     solvedPuzzleArea2: 0
     unlockedMetro: 0
+--- !u!114 &1522200696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522200690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2412ba8b70e4ccf4bb4defbb0b81feee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSlots: 5
+  itemSprites:
+  - itemName: Jam Rusak
+    icon: {fileID: 21300000, guid: ebdc31407e58f0f4ab6d89331787040f, type: 3}
+  - itemName: Fragment1
+    icon: {fileID: 21300000, guid: 75a279eb835b73346b81143b10c0fac3, type: 3}
+  - itemName: Fragment2
+    icon: {fileID: 21300000, guid: 7d97200d98c54ac478665d2efd8fbea0, type: 3}
+  - itemName: Fragment3
+    icon: {fileID: 21300000, guid: 7b3553b975f184e4ea97425dd4086b88, type: 3}
+  - itemName: Fragment4
+    icon: {fileID: 21300000, guid: 4abef26dfb0b8144d8edf22d0fa96274, type: 3}
+  - itemName: Fragment5
+    icon: {fileID: 21300000, guid: 2d6f2e42da8ec064297c1bb025aaf8fc, type: 3}
 --- !u!1 &1682193899
 GameObject:
   m_ObjectHideFlags: 0
