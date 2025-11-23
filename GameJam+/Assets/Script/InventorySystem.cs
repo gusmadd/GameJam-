@@ -16,6 +16,9 @@ public class InventorySystem : MonoBehaviour
     public int maxSlots = 5;
     private List<string> items = new List<string>();
 
+    [Header("Assign all item sprites here in Inspector")]
+    public List<ItemSpritePair> itemSprites = new List<ItemSpritePair>();
+
     private string savePath;
 
     void Awake()
@@ -26,7 +29,6 @@ public class InventorySystem : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             savePath = Application.persistentDataPath + "/inventory.json";
-            Debug.Log(Application.persistentDataPath);
             LoadInventory();
         }
         else
@@ -45,12 +47,10 @@ public class InventorySystem : MonoBehaviour
 
         items.Add(itemName);
 
-        // update UI
-        UIInventory.Instance.AddItemToUI(icon);
+        if (UIInventory.Instance != null)
+            UIInventory.Instance.AddItemToUI(icon);
 
-        // save
         SaveInventory();
-
         return true;
     }
 
@@ -64,17 +64,21 @@ public class InventorySystem : MonoBehaviour
         return items;
     }
 
-    // ================== SAVE / LOAD ==================
+    public Sprite GetItemSprite(string itemName)
+    {
+        foreach (var pair in itemSprites)
+        {
+            if (pair.itemName == itemName) return pair.icon;
+        }
+        return null;
+    }
 
     public void SaveInventory()
     {
         InventorySaveData data = new InventorySaveData();
         data.items = items;
-
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
-
-        Debug.Log("Inventory Saved.");
     }
 
     public void LoadInventory()
@@ -89,28 +93,18 @@ public class InventorySystem : MonoBehaviour
         InventorySaveData data = JsonUtility.FromJson<InventorySaveData>(json);
 
         items = data.items;
-
-        Debug.Log("Inventory Loaded.");
-
-        StartCoroutine(RebuildUIAfterSceneLoaded());
     }
 
-    IEnumerator RebuildUIAfterSceneLoaded()
-    {
-        // tunggu 1 frame agar UIInventory.Instance siap
-        yield return null;
-
-        foreach (string item in items)
-        {
-            Sprite icon = Resources.Load<Sprite>("Sprites/Items/" + item);
-            if (icon != null)
-                UIInventory.Instance.AddItemToUI(icon);
-        }
-    }
-    
     public void ClearInventory()
     {
         items.Clear();
         SaveInventory();
     }
+}
+
+[System.Serializable]
+public class ItemSpritePair
+{
+    public string itemName;
+    public Sprite icon;
 }
