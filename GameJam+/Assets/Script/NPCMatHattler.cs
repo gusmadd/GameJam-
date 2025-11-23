@@ -6,12 +6,31 @@ public class NPCMatHattler : MonoBehaviour
 {
     public bool canInteract = true; // true saat NPC bisa diklik
     public Area3Controller areaController;
+    // Tambahkan variabel ini untuk mencegah dialog hadiah berulang
+    private bool rewardGiven = false;
 
     void OnMouseDown()
     {
-        if (!canInteract) return;
+        if (!canInteract || areaController == null) return;
+        if (rewardGiven) return; // Jangan lakukan apa-apa jika hadiah sudah diberikan
 
-        canInteract = false; // matikan sementara agar dialog tidak double
-        areaController.ClickNPC(); // <-- ubah ini sesuai method terbaru di Area3Controller
+        // 1. Cek status puzzle dari Area3Controller
+        bool isSolved = areaController.isClockSolved; // <--- ASUMSIKAN VARIABEL INI ADA DI Area3Controller
+
+        canInteract = false; // Matikan interaksi sementara
+
+        if (isSolved)
+        {
+            // 2. JIKA PUZZLE SELESAI: Panggil dialog hadiah
+            areaController.RewardFragment();
+            rewardGiven = true; // Tandai hadiah sudah diproses
+            // canInteract akan tetap false hingga dialog selesai, lalu tidak akan dipicu lagi karena rewardGiven=true
+        }
+        else
+        {
+            // 3. JIKA PUZZLE BELUM SELESAI: Panggil dialog awal
+            areaController.ClickNPC();
+            // canInteract akan dihidupkan lagi di OnNPCDialogueFinished() di Area3Controller
+        }
     }
 }

@@ -408,7 +408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1328,7 +1328,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522200697}
+      - m_Target: {fileID: 893720903}
         m_TargetAssemblyTypeName: JamPanelController, Assembly-CSharp
         m_MethodName: OnJarumClick
         m_Mode: 1
@@ -1487,7 +1487,9 @@ MonoBehaviour:
   jamRusakItemName: Jam Rusak
   inventorySystem: {fileID: 0}
   uiInventory: {fileID: 730499621}
-  jamPanelController: {fileID: 1522200697}
+  jamPanelController: {fileID: 893720903}
+  fragmentPrefab: {fileID: 6115977097262896806, guid: 97efd706b379371409c06e72fc43b481, type: 3}
+  fragmentSpawnPoint: {fileID: 1605220742}
 --- !u!114 &860070872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1590,6 +1592,59 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.31, y: 0.65, z: 0}
   m_LocalScale: {x: 0.17547417, y: 0.17547417, z: 0.17547417}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &893720902
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 893720904}
+  - component: {fileID: 893720903}
+  m_Layer: 0
+  m_Name: .
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &893720903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893720902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31bd55114733626429a3e536a9b13d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 2063956681}
+  jarumImage: {fileID: 2132275494}
+  canvasGroup: {fileID: 2063956685}
+  clickButton: {fileID: 748303153}
+  stepAngle: 3
+  targetAngle: 150
+  tolerance: 5
+  inventorySystem: {fileID: 0}
+  uiInventory: {fileID: 730499621}
+--- !u!4 &893720904
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893720902}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1106.2771, y: 529.4081, z: -2.9825282}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2494,7 +2549,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1522200693}
   - component: {fileID: 1522200695}
-  - component: {fileID: 1522200697}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2533,26 +2587,6 @@ MonoBehaviour:
     finishedOpeningDialogue: 0
     solvedPuzzleArea2: 0
     unlockedMetro: 0
---- !u!114 &1522200697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522200690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31bd55114733626429a3e536a9b13d6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 2063956681}
-  jarumImage: {fileID: 2132275494}
-  canvasGroup: {fileID: 2063956685}
-  clickButton: {fileID: 748303153}
-  stepAngle: 5
-  targetAngle: -60
-  startAngle: 180
-  tolerance: 5
 --- !u!1 &1589505607
 GameObject:
   m_ObjectHideFlags: 0
@@ -2666,7 +2700,7 @@ GameObject:
   - component: {fileID: 1605220742}
   - component: {fileID: 1605220743}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: SpawnPointfragment2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2752,7 +2786,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3803,7 +3837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4372,3 +4406,4 @@ SceneRoots:
   - {fileID: 2135431308}
   - {fileID: 1050555545}
   - {fileID: 1605220742}
+  - {fileID: 893720904}

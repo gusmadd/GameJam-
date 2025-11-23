@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7814369092039663317}
   - component: {fileID: 2621312942922925751}
   - component: {fileID: 3046978937807412061}
+  - component: {fileID: 2386377937558127333}
   m_Layer: 0
   m_Name: Fragment2
   m_TagString: Untagged
@@ -179,3 +180,20 @@ PolygonCollider2D:
       - {x: -0.695, y: -2.3799999}
       - {x: 0.035, y: -1.38}
   m_UseDelaunayMesh: 0
+--- !u!114 &2386377937558127333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6115977097262896806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3578f0763aae8db49ae83c3a84ea92aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fragmentItemName: Fragment2
+  fragmentItemIcon: {fileID: 21300000, guid: 2c612d9f74e18eb419bc5ca0ab96ae85, type: 3}
+  floatHeight: 0.15
+  rotationSpeed: 40
+  zRotationSpeed: 360
