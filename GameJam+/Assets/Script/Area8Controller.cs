@@ -78,5 +78,11 @@ public class Area8Controller : MonoBehaviour
             mainCam.orthographicSize = Mathf.Lerp(startSize, targetSize, t / duration);
             yield return null;
         }
+
+        // Zoom selesai → tunggu 3 detik
+        yield return new WaitForSeconds(3f);
+
+        // Load cutscene scene
+        TransitionManager.Instance.FadeOutAndLoadScene("Cut Scene");
     }
 }

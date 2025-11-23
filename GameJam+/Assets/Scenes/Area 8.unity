@@ -350,7 +350,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!60 &86347694
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3132,7 +3132,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1522200693}
   - component: {fileID: 1522200695}
-  - component: {fileID: 1522200697}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3171,20 +3170,6 @@ MonoBehaviour:
     finishedOpeningDialogue: 0
     solvedPuzzleArea2: 0
     unlockedMetro: 0
---- !u!114 &1522200697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522200690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2412ba8b70e4ccf4bb4defbb0b81feee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSlots: 5
-  itemSprites: []
 --- !u!1 &1548269964
 GameObject:
   m_ObjectHideFlags: 0
@@ -3464,7 +3449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1913823728
 Transform:
   m_ObjectHideFlags: 0
