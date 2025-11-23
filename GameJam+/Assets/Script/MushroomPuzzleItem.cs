@@ -7,7 +7,7 @@ public class MushroomPuzzleItem : MonoBehaviour
     public int mushroomID; // 0 = tengah, 1 = kanan, 2 = kiri
 
     private SpriteRenderer sr;
-    private bool solved = false;
+    private bool solved = false; // Tetap berguna untuk mencegah klik berulang
 
     void Start()
     {
@@ -17,6 +17,11 @@ public class MushroomPuzzleItem : MonoBehaviour
     void OnMouseDown()
     {
         if (solved) return;
+        if (MushroomPuzzleManager.Instance == null)
+        {
+            Debug.LogError("Puzzle Manager NULL — Jamur tidak bisa diklik!");
+            return;
+        }
 
         MushroomPuzzleManager.Instance.OnMushroomClicked(mushroomID, this);
     }
@@ -54,16 +59,12 @@ public class MushroomPuzzleItem : MonoBehaviour
             yield return null;
         }
 
-        // mengecil
-        t = 0;
-        while (t < 0.3f)
-        {
-            t += Time.deltaTime;
-            transform.localScale = Vector3.Lerp(bigScale, Vector3.zero, t / 0.3f);
-            yield return null;
-        }
-
-        gameObject.SetActive(false);
+        // KEMBALIKAN POSISI DAN SKALA, DAN BERI TANDA "BENAR" (Misal, warna hijau)
+        transform.position = startPos;
+        transform.localScale = originalScale;
+        sr.color = new Color(0.4f, 1f, 0.4f, sr.color.a); 
+        
+        // Objek TETAP AKTIF
     }
 
     // ========= ANIMASI SALAH =========
@@ -91,9 +92,7 @@ public class MushroomPuzzleItem : MonoBehaviour
 
             float shake = Mathf.Sin(t * 60f) * 0.03f;
 
-            // posisi tidak bergeser tetap di originalPos
             transform.localPosition = originalPos + new Vector3(shake, 0, 0);
-
             transform.localScale = Vector3.Lerp(originalScale, bigScale, t / duration);
             yield return null;
         }
@@ -108,6 +107,8 @@ public class MushroomPuzzleItem : MonoBehaviour
 
         transform.localScale = originalScale;
         transform.localPosition = originalPos;
-        sr.color = originalColor;
+        sr.color = originalColor; // KEMBALIKAN WARNA ASLI
     }
+    
+    // HAPUS METODE ResetItem()
 }

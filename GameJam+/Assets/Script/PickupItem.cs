@@ -31,7 +31,7 @@ public class PickupItem : MonoBehaviour
         Vector3 originalScale = transform.localScale;
 
         float t = 0f;
-        float duration = 0.45f;
+        float duration = 0.8f;
 
         while (t < duration)
         {
