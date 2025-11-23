@@ -144,4 +144,9 @@ public class Area3DialogueVN : MonoBehaviour
         }
         isTyping = false;
     }
+    // ========== OVERLOAD KHUSUS AREA 5 =============
+    public void StartDialogue(DialogueLine[] conversation)
+    {
+        StartDialogue(conversation, null);
+    }
 }
