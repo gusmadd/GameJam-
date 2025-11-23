@@ -8,6 +8,10 @@ public class MainMenuController : MonoBehaviour
     public GameObject SettingPanel;
     public GameObject CreditPanel;
 
+    void Start()
+    {
+        Time.timeScale = 1f;
+    }
 
     public void StartGame()
     {

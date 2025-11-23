@@ -1,14 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
-    public Image dialogueBox;
-    public TextMeshProUGUI dialogueText;
+    [Header("UI")]
+    public Image dialogueBox;                // akan diisi otomatis dari Image di Text Box
+    public TextMeshProUGUI dialogueText;     // akan diisi otomatis dari child TMP Text
 
+    [Header("Typing Settings")]
     public float typingSpeed = 0.03f;
     public float eraseSpeed = 0.015f;
 
@@ -19,12 +20,31 @@ public class DialogueManager : MonoBehaviour
     private Coroutine typingRoutine;
     private Coroutine eraseRoutine;
 
-    public DialogueBoxAnimator dialogueAnimator;
+    [Header("Animation")]
+    public DialogueBoxAnimator dialogueAnimator;   // diambil otomatis dari komponen di Text Box
+
     private System.Action finishCallback;
+
+    void Awake()
+    {
+        // Ambil komponen otomatis supaya tidak tergantung drag Inspector
+        if (dialogueBox == null)
+            dialogueBox = GetComponent<Image>();
+
+        if (dialogueText == null)
+            dialogueText = GetComponentInChildren<TextMeshProUGUI>(true);
+
+        if (dialogueAnimator == null)
+            dialogueAnimator = GetComponent<DialogueBoxAnimator>();
+
+        if (dialogueText == null)
+            Debug.LogError("[DialogueManager] Tidak menemukan TextMeshProUGUI di child Text Box!");
+    }
 
     void Start()
     {
-        dialogueText.text = "";
+        if (dialogueText != null)
+            dialogueText.text = "";
     }
 
     // VERSION WITH CALLBACK
@@ -42,7 +62,8 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator StartDialogueFlow()
     {
         // animasi textbox muncul
-        yield return dialogueAnimator.PlayShowAnimation();
+        if (dialogueAnimator != null)
+            yield return dialogueAnimator.PlayShowAnimation();
 
         // tampilkan line pertama
         yield return StartCoroutine(TypeLine());
@@ -51,6 +72,8 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeLine()
     {
         isTyping = true;
+        if (dialogueText == null) yield break;
+
         dialogueText.text = "";
 
         string line = currentDialog[index];
@@ -63,6 +86,9 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator TypingProcess(string line)
     {
+        if (dialogueText == null) yield break;
+        if (line == null) yield break;
+
         dialogueText.text = "";
         foreach (char c in line.ToCharArray())
         {
@@ -83,6 +109,8 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator EraseProcess()
     {
+        if (dialogueText == null) yield break;
+
         while (dialogueText.text.Length > 0)
         {
             dialogueText.text = dialogueText.text.Substring(0, dialogueText.text.Length - 1);
@@ -92,18 +120,15 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
+        if (currentDialog == null) return;
+
+        // SPACE
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (currentDialog == null) return;
-
-            // SPACE
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                HandleInput();
-            }
-
+            HandleInput();
         }
-
     }
+
     private void HandleInput()
     {
         if (isTyping)
@@ -111,7 +136,9 @@ public class DialogueManager : MonoBehaviour
             if (typingRoutine != null)
                 StopCoroutine(typingRoutine);
 
-            dialogueText.text = currentDialog[index];
+            if (dialogueText != null)
+                dialogueText.text = currentDialog[index];
+
             isTyping = false;
         }
         else if (!isErasing)
@@ -129,7 +156,8 @@ public class DialogueManager : MonoBehaviour
 
         if (index >= currentDialog.Length)
         {
-            yield return dialogueAnimator.PlayHideAnimation();
+            if (dialogueAnimator != null)
+                yield return dialogueAnimator.PlayHideAnimation();
 
             GameManager.Instance.SetOpeningDialogueFinished(true);
 
