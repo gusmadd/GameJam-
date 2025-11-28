@@ -3610,6 +3610,8 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 4abef26dfb0b8144d8edf22d0fa96274, type: 3}
   - itemName: Fragment5
     icon: {fileID: 21300000, guid: 2d6f2e42da8ec064297c1bb025aaf8fc, type: 3}
+  - itemName: Jarum Pendek
+    icon: {fileID: 21300000, guid: ed8c5bf390ed2324fb07fbfbfdd1b278, type: 3}
 --- !u!1 &1682193899
 GameObject:
   m_ObjectHideFlags: 0
